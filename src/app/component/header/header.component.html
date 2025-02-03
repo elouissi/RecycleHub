@@ -1,0 +1,63 @@
+<header>
+  <nav class="fixed top-0 left-0 w-full z-50 bg-green-500 px-4 lg:px-6 py-2.5">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center">
+        <img src="/assets/images/logo.svg" class="mr-3 h-8" alt="RecycleHub Logo" />
+        <span class="self-center text-xl font-semibold whitespace-nowrap text-white">RecycleHub</span>
+      </a>
+
+      <!-- Menu Navigation (Desktop) -->
+      <div class="hidden lg:flex lg:space-x-6">
+        <a routerLink="/" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">Home</a>
+        <a routerLink="/recycling-guide" class="text-white hover:text-green-300 px-3 py-2 rounded">Recycling Guide</a>
+        <a routerLink="/collection-points" class="text-white hover:text-green-300 px-3 py-2 rounded">Collection Points</a>
+        <a routerLink="/eco-shop" class="text-white hover:text-green-300 px-3 py-2 rounded">Eco Shop</a>
+        <a routerLink="/community" class="text-white hover:text-green-300 px-3 py-2 rounded">Community</a>
+        <a routerLink="/contact" class="text-white hover:text-green-300 px-3 py-2 rounded">Contact</a>
+      </div>
+
+      <!-- Boutons Login / Register (Desktop) -->
+      <div class="hidden lg:flex lg:items-center">
+        <a *ngIf="!isAuthenticated()" routerLink="/login" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2 mr-2">
+          Log in
+        </a>
+        <a *ngIf="!isAuthenticated()" routerLink="/register" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
+          Register
+        </a>
+      </div>
+
+      <!-- Menu Hamburger (Mobile) -->
+      <button (click)="toggleMobileMenu()" class="inline-flex items-center p-2 ml-1 text-sm text-white rounded-lg lg:hidden hover:bg-green-700">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div [class.hidden]="!isMobileMenuOpen" class="w-full lg:hidden bg-green-600 p-4">
+      <ul class="flex flex-col space-y-4">
+        <li><a routerLink="/" class="text-white block py-2 px-4 rounded">Home</a></li>
+        <li><a routerLink="/recycling-guide" class="text-white block py-2 px-4 rounded">Recycling Guide</a></li>
+        <li><a routerLink="/collection-points" class="text-white block py-2 px-4 rounded">Collection Points</a></li>
+        <li><a routerLink="/eco-shop" class="text-white block py-2 px-4 rounded">Eco Shop</a></li>
+        <li><a routerLink="/community" class="text-white block py-2 px-4 rounded">Community</a></li>
+        <li><a routerLink="/contact" class="text-white block py-2 px-4 rounded">Contact</a></li>
+
+        <!-- Boutons Login / Register (Mobile) -->
+        <li *ngIf="!isAuthenticated()">
+          <a routerLink="/login" class="text-white bg-green-700 hover:bg-white hover:text-green-800 block py-2 px-4 rounded">
+            Log in
+          </a>
+        </li>
+        <li *ngIf="!isAuthenticated()">
+          <a routerLink="/register" class="text-white bg-green-700 hover:bg-white hover:text-green-800 block py-2 px-4 rounded">
+            Register
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
