@@ -10,7 +10,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any>
   public currentUser: Observable<any>
 
-  constructor(private http: HttpClient) { // Assurez-vous que HttpClient est importé correctement
+  constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("currentUser") || "null"))
     this.currentUser = this.currentUserSubject.asObservable()
   }
@@ -19,7 +19,7 @@ export class AuthService {
     return this.currentUserSubject.value
   }
   isAuthenticated(): boolean {
-    return !!this.currentUserSubject.value;
+    return !!this.currentUserSubject.value ;
   }
 
 
@@ -37,10 +37,19 @@ export class AuthService {
             console.error("Erreur lors de la mise à jour du token", error);
           }
         });
+        const userData = {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName
+        };
 
-        console.log("Utilisateur enregistré :", registeredUser);
-        localStorage.setItem("currentUser", JSON.stringify(registeredUser));
-        this.currentUserSubject.next(registeredUser);
+        console.log("Utilisateur enregistré :", userData);
+        localStorage.setItem("currentUser", JSON.stringify(userData));
+        console.log("hhhhhh"+localStorage.getItem("currentUser"));
+
+        this.currentUserSubject.next(userData);
+
+
       })
     );
   }
@@ -56,8 +65,33 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("currentUser")
-    this.currentUserSubject.next(null)
+    localStorage.removeItem("currentUser");
+    this.currentUserSubject.next(null);
+
+    return this.http.put(`${this.apiUrl}/token/3ede`, { exist: false }).subscribe({
+      next: (tokenResponse) => {
+        console.log("Token mis à jour :", tokenResponse);
+      },
+      error: (error) => {
+        console.error("Erreur lors de la mise à jour du token", error);
+      }
+    });
   }
+  getUserEmail(): string | null {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        return parsedUser.email || null;
+      } catch (error) {
+        console.error("Erreur lors de la récupération de l'email :", error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+
+
 }
 

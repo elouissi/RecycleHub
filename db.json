@@ -81,6 +81,106 @@
       "address": "In minus distinctio",
       "phone": "+1 (799) 479-1612",
       "birthDate": "2019-02-17"
+    },
+    {
+      "id": "6140",
+      "email": "bozozydema@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Colin",
+      "lastName": "Newman",
+      "address": "Consequatur a vel s",
+      "phone": "+1 (667) 268-1031",
+      "birthDate": "1970-03-11"
+    },
+    {
+      "id": "cd60",
+      "email": "seqab@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Belle",
+      "lastName": "Freeman",
+      "address": "Et odit eiusmod aute",
+      "phone": "+1 (219) 914-8067",
+      "birthDate": "1974-08-08"
+    },
+    {
+      "id": "eaf8",
+      "email": "rudeke@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Marah",
+      "lastName": "Francis",
+      "address": "Ipsa aute consequun",
+      "phone": "+1 (238) 975-6488",
+      "birthDate": "2004-09-04"
+    },
+    {
+      "id": "a9e2",
+      "email": "jusi@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Erin",
+      "lastName": "Whitaker",
+      "address": "Molestiae aliquid et",
+      "phone": "+1 (292) 941-7995",
+      "birthDate": "1971-11-08"
+    },
+    {
+      "id": "7215",
+      "email": "fymehi@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Shelly",
+      "lastName": "Guerra",
+      "address": "Voluptatem nobis est",
+      "phone": "+1 (293) 845-7573",
+      "birthDate": "2003-10-14"
+    },
+    {
+      "id": "ca35",
+      "email": "tuqija@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Magee",
+      "lastName": "Rutledge",
+      "address": "Cupidatat delectus ",
+      "phone": "+1 (334) 938-9078",
+      "birthDate": "2008-12-14"
+    },
+    {
+      "id": "61e3",
+      "email": "yassine@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Victor",
+      "lastName": "Mccall",
+      "address": "Alias porro nostrud ",
+      "phone": "+1 (403) 172-6424",
+      "birthDate": "1997-10-19"
+    },
+    {
+      "id": "d01c",
+      "email": "zijevozo@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Fallon",
+      "lastName": "Townsend",
+      "address": "Dolor unde Nam quia ",
+      "phone": "+1 (444) 653-8065",
+      "birthDate": "1971-02-14"
+    },
+    {
+      "id": "0a89",
+      "email": "hiqikacor@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Benjamin",
+      "lastName": "Kidd",
+      "address": "Labore veniam vel o",
+      "phone": "+1 (952) 125-1607",
+      "birthDate": "1992-04-04"
+    },
+    {
+      "id": "0586",
+      "email": "qaxyfi@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Yoshio",
+      "lastName": "Flynn",
+      "address": "Dolorem velit odio n",
+      "phone": "+1 (725) 111-7086",
+      "birthDate": "1970-01-28"
     }
   ],
   "token": [
