@@ -17,7 +17,6 @@
         <a routerLink="/contact" class="text-white hover:text-green-300 px-3 py-2 rounded">Contact</a>
       </div>
 
-      <!-- Boutons Login / Register (Desktop) -->
       <div class="hidden lg:flex lg:items-center">
         <a *ngIf="!isAuthenticated()" routerLink="/login" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2 mr-2">
           Log in
@@ -25,9 +24,15 @@
         <a *ngIf="!isAuthenticated()" routerLink="/register" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
           Register
         </a>
-        <a *ngIf="isAuthenticated()"  class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
+        <button>  <a *ngIf="isAuthenticated()"  (click)="logout()"  class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
           Log out
-        </a>
+        </a></button>
+        <button class="ml-1">  <a *ngIf="isAuthenticated()" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
+          {{getFirst()}}
+        </a></button>
+
+
+
       </div>
 
       <!-- Menu Hamburger (Mobile) -->
@@ -59,6 +64,13 @@
           <a routerLink="/register" class="text-white bg-green-700 hover:bg-white hover:text-green-800 block py-2 px-4 rounded">
             Register
           </a>
+        </li>
+        <li *ngIf="isAuthenticated()">
+          <button>
+          <a  (click)="logout()"  class="text-white  bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
+            Log out
+          </a>
+          </button>
         </li>
       </ul>
     </div>
