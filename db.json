@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "address": "Iure rerum veniam v",
+      "birthDate": "2011-01-03",
+      "email": "misanyva@mailinator.com",
+      "firstName": "Harding",
+      "lastName": "Mcdonald",
+      "password": "Pa$$w0rd!",
+      "phone": "+1 (307) 107-2485",
+      "profilePicture": null
+    },
+    {
+      "id": "2",
+      "address": "Iure rerum veniam v",
+      "birthDate": "2011-01-03",
+      "email": "misanyva@mailinator.com",
+      "firstName": "Harding",
+      "lastName": "Mcdonald",
+      "password": "Pa$$w0rd!",
+      "phone": "+1 (307) 107-2485",
+      "profilePicture": null
+    },
+    {
+      "id": "6044",
+      "email": "ficynyfu@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Ignacia",
+      "lastName": "Dickson",
+      "address": "Velit sunt omnis eos",
+      "phone": "+1 (768) 824-6248",
+      "birthDate": "1973-12-10"
+    },
+    {
+      "id": "1c1e",
+      "email": "duhyje@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Raya",
+      "lastName": "Mercer",
+      "address": "Ullamco fugiat eum ",
+      "phone": "+1 (961) 999-5984",
+      "birthDate": "1981-01-13"
+    },
+    {
+      "id": "f496",
+      "email": "dawe@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Rahim",
+      "lastName": "Wooten",
+      "address": "Magna laboriosam pr",
+      "phone": "+1 (443) 755-7278",
+      "birthDate": "1981-12-04"
+    },
+    {
+      "id": "d6f9",
+      "email": "daxa@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Leandra",
+      "lastName": "Snyder",
+      "address": "Omnis eum minim volu",
+      "phone": "+1 (923) 387-2588",
+      "birthDate": "2019-02-02"
+    },
+    {
+      "id": "303d",
+      "email": "resuxifelu@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Leila",
+      "lastName": "Salazar",
+      "address": "Nobis modi earum num",
+      "phone": "+1 (791) 955-9856",
+      "birthDate": "2010-10-19"
+    },
+    {
+      "id": "c500",
+      "email": "xeqigy@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Keiko",
+      "lastName": "Waller",
+      "address": "In minus distinctio",
+      "phone": "+1 (799) 479-1612",
+      "birthDate": "2019-02-17"
+    }
+  ],
+  "token": [
+    {
+      "exist": true,
+      "id": "3ede"
+    }
+  ]
+}

@@ -1,64 +1,63 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Observable, tap} from 'rxjs';
-
-
-
+import { HttpClient } from "@angular/common/http"; // Changez type import à regular import
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, Observable, tap } from "rxjs"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
+  private apiUrl = "http://localhost:3000"
+  private currentUserSubject: BehaviorSubject<any>
+  public currentUser: Observable<any>
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { // Assurez-vous que HttpClient est importé correctement
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("currentUser") || "null"))
+    this.currentUser = this.currentUserSubject.asObservable()
+  }
 
-  login(email: string, password: string): Observable<any> {
-    const data = { email, password };
+  public get currentUserValue() {
+    return this.currentUserSubject.value
+  }
+  isAuthenticated(): boolean {
+    return !!this.currentUserSubject.value;
+  }
 
-    return this.http.post<any>(``, data).pipe(
-      // Save the token to localStorage when login is successful
 
+  register(user: any): Observable<any> {
+    if (user.profilePicture === null) {
+      delete user.profilePicture;
+    }
+    return this.http.post(`${this.apiUrl}/users`, user).pipe(
+      tap((registeredUser) => {
+        this.http.put(`${this.apiUrl}/token/3ede`, { exist: true }).subscribe({
+          next: (tokenResponse) => {
+            console.log("Token mis à jour :", tokenResponse);
+          },
+          error: (error) => {
+            console.error("Erreur lors de la mise à jour du token", error);
+          }
+        });
+
+        console.log("Utilisateur enregistré :", registeredUser);
+        localStorage.setItem("currentUser", JSON.stringify(registeredUser));
+        this.currentUserSubject.next(registeredUser);
+      })
     );
   }
-
-  logout(): void {
-    localStorage.removeItem('currentUser'); // Remove the token from localStorage
-  }
-  getUsername(): string | null {
-    const token = localStorage.getItem('currentUser');
-    if (!token) {
-      console.log("le token not found");
-      return null;
-    }
-
-    try {
-      return localStorage.getItem('username')|| null; // Retourne le champ "username" ou null
-    } catch (error) {
-      console.error('Invalid token:', error);
-      return null;
-    }
-  }
-  getRole(): string | null {
-    const token = localStorage.getItem('currentUser');
-    if (!token) {
-      return null;
-    }
-    try {
-      return localStorage.getItem('role')|| null; // Retourne le champ "username" ou null
-
-    } catch (error) {
-      console.error('Invalid token:', error);
-      return null;
-    }
-
+  login(email: string, password: string): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
+      tap((users) => {
+        if (users.length > 0) {
+          localStorage.setItem("currentUser", JSON.stringify(users[0]))
+          this.currentUserSubject.next(users[0])
+        }
+      }),
+    )
   }
 
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('currentUser'); // Check if token exists in localStorage
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('currentUser'); // Retrieve the token from localStorage
+  logout() {
+    localStorage.removeItem("currentUser")
+    this.currentUserSubject.next(null)
   }
 }
+

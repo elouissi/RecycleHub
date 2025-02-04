@@ -3,7 +3,7 @@
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
       <!-- Logo -->
       <a routerLink="/" class="flex items-center">
-        <img src="/assets/images/logo.svg" class="mr-3 h-8" alt="RecycleHub Logo" />
+        <img ngSrc="/assets/images/logo1.png" class="mr-3 h-8" alt="RecycleHub Logo" height="40" width="40"/>
         <span class="self-center text-xl font-semibold whitespace-nowrap text-white">RecycleHub</span>
       </a>
 
@@ -24,6 +24,9 @@
         </a>
         <a *ngIf="!isAuthenticated()" routerLink="/register" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
           Register
+        </a>
+        <a *ngIf="isAuthenticated()"  class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
+          Log out
         </a>
       </div>
 
