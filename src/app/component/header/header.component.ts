@@ -32,4 +32,8 @@ export class HeaderComponent {
   getEmail() {
     return this.authService.getUserEmail();
   }
+  getFirst() {
+    return this.authService.getUserFirst();
+  }
+
 }

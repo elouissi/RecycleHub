@@ -3,6 +3,8 @@ import { FormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: "app-register",
@@ -37,21 +39,31 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    // Validation de base
     if (!this.user.email || !this.user.password || !this.user.firstName || !this.user.lastName) {
-      alert("Veuillez remplir tous les champs obligatoires");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Veuillez remplir tous les champs obligatoires !",
+      });
       return;
     }
+
 
     this.authService.register(this.user).subscribe({
       next: (response) => {
         console.log("Inscription réussie", response);
-        this.router.navigate(["/login"]); // Ou à où vous voulez rediriger
-      },
+        Swal.fire({
+          icon: "success",
+          title: "Inscription réussie !",
+          text: "Votre compte a été créé avec succès.",
+          confirmButtonText: "OK"
+        }).then(() => {
+          this.router.navigate(["/"]);
+        });
+        },
       error: (error) => {
         console.error("Erreur lors de l'inscription", error);
-        alert("Une erreur est survenue lors de l'inscription. Veuillez réessayer.");
-      }
+        }
     });
   }}
 
