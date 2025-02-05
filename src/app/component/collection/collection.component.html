@@ -1,0 +1,72 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Demande de Collecte</h2>
+  <form [formGroup]="collectionForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="requests">
+      <div *ngFor="let request of requests.controls; let i = index" [formGroupName]="i" class="mb-8 p-4 border rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-4">Demande #{{ i + 1 }}</h3>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Type de déchet</label>
+          <select formControlName="wasteType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+            <option value="">Sélectionnez un type</option>
+            <option value="plastique">Plastique</option>
+            <option value="verre">Verre</option>
+            <option value="papier">Papier</option>
+            <option value="metal">Métal</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Photos (optionnel)</label>
+          <input type="file" formControlName="photos" multiple class="mt-1 block w-full" accept="image/*">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Poids estimé (en grammes)</label>
+          <input type="number" formControlName="weight" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" min="1000">
+          <p *ngIf="request.get('weight')?.hasError('min')" class="text-red-500 text-sm mt-1">Le poids minimum est de 1000g.</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Adresse de collecte</label>
+          <input type="text" formControlName="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Date de collecte</label>
+          <input type="date" formControlName="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Créneau horaire</label>
+          <select formControlName="timeSlot" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+            <option value="">Sélectionnez un créneau</option>
+            <option *ngFor="let slot of timeSlots" [value]="slot">{{ slot }}</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Notes supplémentaires (optionnel)</label>
+          <textarea formControlName="notes" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button
+      *ngIf="requests.length < 3"
+      type="button"
+      (click)="addRequest()"
+      class="mt-4 px-4 py-2 mr-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
+    >
+      Ajouter une autre demande
+    </button>
+
+    <button
+      type="submit"
+      [disabled]="collectionForm.invalid"
+      class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50"
+    >
+      Soumettre la/les demande(s)
+    </button>
+  </form>
+</div>

@@ -5,8 +5,11 @@
     <div class="container mx-auto px-4 relative z-10 text-center text-white">
       <h1 class="text-5xl font-bold mb-4">Bienvenue sur RecycleHub</h1>
       <p class="text-xl mb-8">Ensemble, donnons une nouvelle vie à nos déchets</p>
-      <a routerLink="/register" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
+      <a *ngIf="!isAuthenticated()" routerLink="/register" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
         Rejoignez-nous
+      </a>
+      <a *ngIf="isAuthenticated()" routerLink="/collection" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
+        Demander une collection
       </a>
     </div>
   </section>
@@ -66,7 +69,7 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-green-500 text-white text-center">
+  <section class="py-16 bg-green-500  text-white text-center">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold mb-4">Prêt à faire la différence ?</h2>
       <p class="text-xl mb-8">Rejoignez RecycleHub aujourd'hui et commencez à recycler pour un avenir plus vert.</p>

@@ -281,6 +281,27 @@
       "address": "In aliquid eligendi ",
       "phone": "+1 (447) 872-6214",
       "birthDate": "1983-02-27"
+    },
+    {
+      "id": "4a24",
+      "email": "deka@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Chanda",
+      "lastName": "Olsen",
+      "address": "Incididunt vitae ali",
+      "phone": "+1 (479) 496-8287",
+      "birthDate": "1993-10-29"
+    }
+  ],
+  "demands": [
+    {
+      "address": "Dolor ut expedita el",
+      "date": "2022-03-08",
+      "notes": "Deleniti voluptatem",
+      "photos": "",
+      "timeSlot": "10:00 - 11:00",
+      "wasteType": "plastique",
+      "weight": 8747
     }
   ],
   "token": [
