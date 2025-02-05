@@ -19,6 +19,7 @@ export class AuthService {
   public get currentUserValue() {
     return this.currentUserSubject.value
   }
+
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value ;
   }
@@ -41,7 +42,7 @@ export class AuthService {
             delete user.profilePicture;
           }
           return this.http.post(`${this.apiUrl}/users`, user).pipe(
-            tap((registeredUser) => {
+            tap((registeredUser : any) => {
               this.http.put(`${this.apiUrl}/token/3ede`, { exist: true }).subscribe({
                 next: (tokenResponse) => {
                   console.log("Token mis à jour :", tokenResponse);
@@ -51,9 +52,10 @@ export class AuthService {
                 }
               });
               const userData = {
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName
+                id: registeredUser.id,
+                email: registeredUser.email,
+                firstName: registeredUser.firstName,
+                lastName: registeredUser.lastName,
               };
               console.log("Utilisateur enregistré :", userData);
               localStorage.setItem("currentUser", JSON.stringify(userData));
@@ -66,7 +68,6 @@ export class AuthService {
       }),
       catchError((error) => {
         console.error(error.message);
-        // Vous pouvez également renvoyer l'erreur au composant pour l'afficher
         return throwError(() => error);
       })
     );
@@ -75,8 +76,14 @@ export class AuthService {
     return this.http.get<any[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
       tap((users) => {
         if (users.length > 0) {
-          localStorage.setItem("currentUser", JSON.stringify(users[0]))
-          this.currentUserSubject.next(users[0])
+          const userData = {
+            id: users[0].id,
+            email: users[0].email,
+            firstName: users[0].firstName,
+            lastName: users[0].lastName,
+          };
+          localStorage.setItem("currentUser", JSON.stringify(userData))
+          this.currentUserSubject.next(userData)
         }
       }),
     )
@@ -121,6 +128,20 @@ export class AuthService {
     }
     return null;
   }
+  getUserId(): string | null {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        return parsedUser.id || null;
+      } catch (error) {
+        console.error("Erreur lors de la récupération de l'id :", error);
+        return null;
+      }
+    }
+    return null;
+  }
+
 
 
 
