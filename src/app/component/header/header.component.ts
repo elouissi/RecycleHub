@@ -35,5 +35,8 @@ export class HeaderComponent {
   getFirst() {
     return this.authService.getUserFirst();
   }
+  getId(){
+    return this.authService.getUserId();
+  }
 
 }

@@ -58,6 +58,7 @@ export class CollectionComponent {
         timeSlot: ["", Validators.required],
         notes: [""],
         userId:[this.getId()],
+        status: ["En attente"],
       })
       this.requests.push(newRequest)
     }

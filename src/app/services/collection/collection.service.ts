@@ -12,6 +12,7 @@ export interface CollectionRequest {
   wasteType: string;
   weight: number;
   userId: string;
+  status: string;
 }
 
 @Injectable({

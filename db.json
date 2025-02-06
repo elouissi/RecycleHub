@@ -351,90 +351,30 @@
       "address": "Ut veniam accusanti",
       "phone": "+1 (295) 607-7893",
       "birthDate": "1981-12-05"
+    },
+    {
+      "id": "7c4e",
+      "email": "befe@mailinator.com",
+      "password": "",
+      "firstName": "Ivana",
+      "lastName": "Frazier",
+      "address": "Elit qui voluptatem",
+      "phone": "+1 (805) 571-1749",
+      "birthDate": "2003-10-28"
     }
   ],
   "demands": [
     {
-      "id": "8722",
-      "wasteType": "papier",
+      "id": "96c9",
+      "wasteType": "verre",
       "photos": "",
-      "weight": 6698,
-      "address": "Ut molestias autem e",
-      "date": "2007-06-23",
-      "timeSlot": "12:00 - 13:00",
-      "notes": "Quis ut maiores anim"
-    },
-    {
-      "id": "d181",
-      "wasteType": "papier",
-      "photos": "",
-      "weight": 6219,
-      "address": "Inventore vero quaer",
-      "date": "1995-09-02",
-      "timeSlot": "12:00 - 13:00",
-      "notes": "Recusandae Et rerum"
-    },
-    {
-      "id": "f852",
-      "wasteType": "plastique",
-      "photos": "",
-      "weight": 6808,
-      "address": "Tenetur quae deserun",
-      "date": "1979-06-21",
-      "timeSlot": "14:00 - 15:00",
-      "notes": "Neque laboriosam to"
-    },
-    {
-      "id": "cc28",
-      "wasteType": "metal",
-      "photos": "",
-      "weight": 7588,
-      "address": "Perspiciatis sed ea",
-      "date": "1974-06-08",
-      "timeSlot": "11:00 - 12:00",
-      "notes": "Eos quibusdam sint "
-    },
-    {
-      "id": "3537",
-      "wasteType": "plastique",
-      "photos": "",
-      "weight": 7089,
-      "address": "Sed sint voluptate ",
-      "date": "2009-10-07",
-      "timeSlot": "11:00 - 12:00",
-      "notes": "Itaque aperiam et op"
-    },
-    {
-      "id": "f0ad",
-      "wasteType": "papier",
-      "photos": "",
-      "weight": 56300,
-      "address": "Temporibus consequat",
-      "date": "1999-11-13",
-      "timeSlot": "13:00 - 14:00",
-      "notes": "Ut rerum et consecte"
-    },
-    {
-      "id": "e432",
-      "wasteType": "plastique",
-      "photos": "",
-      "weight": 8480,
-      "address": "Hic eaque quia minim",
-      "date": "2023-02-21",
-      "timeSlot": "14:00 - 15:00",
-      "notes": "Cumque quo modi qui ",
-      "userId": ""
-    },
-    {
-      "id": "0c09",
-      "wasteType": "metal",
-      "photos": "",
-      "weight": 9459,
-      "address": "In quo nisi ipsum eu",
-      "date": "1990-05-28",
-      "timeSlot": "09:00 - 10:00",
-      "notes": "Ab magna deserunt ni",
-      "userId": "9e0b"
+      "weight": 7890,
+      "address": "Esse nulla aspernat",
+      "date": "2015-02-14",
+      "timeSlot": "16:00 - 17:00",
+      "notes": "Ea ut omnis sunt ma",
+      "userId": "9e0b",
+      "status": "En attente"
     }
   ],
   "token": [
