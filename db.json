@@ -361,6 +361,46 @@
       "address": "Elit qui voluptatem",
       "phone": "+1 (805) 571-1749",
       "birthDate": "2003-10-28"
+    },
+    {
+      "id": "0dfd",
+      "email": "rulagoki@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Yeo",
+      "lastName": "Sloan",
+      "address": "Expedita velit quis ",
+      "phone": "+1 (618) 795-7203",
+      "birthDate": "1994-06-06"
+    },
+    {
+      "id": "cee4",
+      "email": "mozol@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Venus",
+      "lastName": "Williams",
+      "address": "Ipsum repellendus A",
+      "phone": "+1 (364) 797-9644",
+      "birthDate": "2008-05-08"
+    },
+    {
+      "id": "5170",
+      "email": "lypixumeza@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Kane",
+      "lastName": "Charles",
+      "address": "Dolore qui voluptatu",
+      "phone": "+1 (486) 183-3725",
+      "birthDate": "1977-08-18"
+    },
+    {
+      "id": "2e43",
+      "email": "vymuvo@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Charity",
+      "lastName": "Benson",
+      "address": "Nostrud in similique",
+      "phone": "+1 (379) 254-1166",
+      "birthDate": "2023-03-23"
     }
   ],
   "demands": [
@@ -375,11 +415,103 @@
       "notes": "Ea ut omnis sunt ma",
       "userId": "9e0b",
       "status": "En attente"
+    },
+    {
+      "id": "57e1",
+      "wasteTypes": [
+        {
+          "type": "papier",
+          "weight": 4200
+        },
+        {
+          "type": "plastique",
+          "weight": 4100
+        },
+        {
+          "type": "verre",
+          "weight": 1100
+        }
+      ],
+      "photos": "",
+      "address": "A reiciendis sed aut",
+      "date": "2009-08-26",
+      "timeSlot": "09:00 - 10:00",
+      "notes": "Laborum Nulla sint ",
+      "userId": "5170",
+      "status": "En attente",
+      "totalWeight": 9400
+    },
+    {
+      "id": "7ee5",
+      "wasteTypes": [
+        {
+          "type": "plastique",
+          "weight": 2
+        }
+      ],
+      "photos": "",
+      "address": "Et aut eu quos magni",
+      "date": "1980-01-15",
+      "timeSlot": "09:00 - 10:00",
+      "notes": "Eu officiis dolores ",
+      "userId": "5170",
+      "status": "En attente",
+      "totalWeight": 2
+    },
+    {
+      "id": "bff9",
+      "wasteTypes": [
+        {
+          "type": "verre",
+          "weight": 58
+        },
+        {
+          "type": "papier",
+          "weight": 82
+        }
+      ],
+      "address": "Sed sit ut ex duis d",
+      "date": "1992-07-23",
+      "timeSlot": "12:00 - 13:00",
+      "notes": "Laborum natus iure d",
+      "totalWeight": 140
+    },
+    {
+      "id": "4add",
+      "wasteTypes": [
+        {
+          "type": "papier",
+          "weight": 8840
+        }
+      ],
+      "address": "Dolor enim aliquam p",
+      "date": "2024-02-02",
+      "timeSlot": "13:00 - 14:00",
+      "notes": "In quod esse consequ",
+      "totalWeight": 8840
+    },
+    {
+      "id": "0211",
+      "wasteTypes": [
+        {
+          "type": "plastique",
+          "weight": 5010
+        },
+        {
+          "type": "metal",
+          "weight": 1000
+        }
+      ],
+      "address": "In explicabo Placea",
+      "date": "2017-12-12",
+      "timeSlot": "10:00 - 11:00",
+      "notes": "Adipisicing magna qu",
+      "totalWeight": 6010
     }
   ],
   "token": [
     {
-      "exist": false,
+      "exist": true,
       "id": "3ede"
     }
   ]
