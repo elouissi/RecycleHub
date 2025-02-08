@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {FlowbiteService} from "../../services/flowbite.service";
 import {AuthService} from "../../services/auth/auth.service";
@@ -15,7 +15,7 @@ export class HeaderComponent {
   isMobileMenuOpen = false
 
 
-  constructor(private flowbiteService: FlowbiteService,private authService:AuthService) {}
+  constructor(private flowbiteService: FlowbiteService,private authService:AuthService,private router:Router) {}
 
 
   isAuthenticated(): boolean {
@@ -26,7 +26,8 @@ export class HeaderComponent {
   }
 
   logout() {
-    return this.authService.logout();
+     this.authService.logout()
+     return this.router.navigate(["/home"]);
 
   }
   toggleMobileMenu() {

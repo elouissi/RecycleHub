@@ -46,10 +46,11 @@ export class CollectionComponent implements OnInit {
       date: ['', Validators.required],
       timeSlot: ['', Validators.required],
       notes: ['', Validators.required],
-      status:['En cours'],
+      status:["En cours"],
       totalWeight: [0,Validators.max(10000)],
       userId:[this.authService.getUserId()]
     });
+
 
     console.log(this.collectionForm.get('totalWeight')?.value);
 
@@ -61,6 +62,9 @@ export class CollectionComponent implements OnInit {
     (this.collectionForm.get('wasteTypes') as FormArray).valueChanges.subscribe(() => {
       this.updateTotalWeight();
     });
+  }
+  getUserId(){
+    return this.authService.getUserId()
   }
 
   updateTotalWeight() {
@@ -155,6 +159,7 @@ export class CollectionComponent implements OnInit {
         };
 
         this.showLoadingAlert();
+        console.log(demand)
         this.collectionService.createDemand(demand).subscribe({
           next: () => {
             Swal.close();

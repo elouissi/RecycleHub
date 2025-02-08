@@ -35,6 +35,13 @@ export class CollectionService {
   getAllDemands(): Observable<CollectionRequest[]> {
     return this.http.get<CollectionRequest[]>(this.apiUrl)
   }
+  getAdressDemands(address:string | null): Observable<CollectionRequest[]> {
+    return this.http.get<CollectionRequest[]>(`${this.apiUrl}?address=${address}`)
+  }
+  getUserDemands(id:string | null): Observable<CollectionRequest[]> {
+    return this.http.get<CollectionRequest[]>(`${this.apiUrl}?userId=${id}`)
+  }
+
 
   getPendingDemands(userId: string | null): Observable<CollectionRequest[]> {
     return this.http.get<CollectionRequest[]>(`${this.apiUrl}?status=En%20cours&userId=${userId}`);

@@ -17,7 +17,7 @@
       "password": "Pa$$w0rd!",
       "firstName": "collecteur",
       "lastName": "collecteur",
-      "address": "Elit adipisci dolor",
+      "address": "marrakech",
       "phone": "+1 (332) 986-1463",
       "birthDate": "1992-10-08",
       "role": "collecteur"
@@ -43,64 +43,154 @@
       "phone": "+1 (683) 775-4607",
       "birthDate": "2004-12-15",
       "role": "particulier"
+    },
+    {
+      "id": "5eaa",
+      "email": "sudul@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Devin",
+      "lastName": "Holman",
+      "address": "In qui esse ut unde",
+      "phone": "+1 (522) 725-8234",
+      "birthDate": "1997-05-17",
+      "role": "particulier"
+    },
+    {
+      "id": "fe46",
+      "email": "jehaxecac@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Giacomo",
+      "lastName": "Hines",
+      "address": "Est aliquip pariatur",
+      "phone": "+1 (184) 184-8862",
+      "birthDate": "2010-10-23",
+      "role": "particulier"
+    },
+    {
+      "id": "a9ad",
+      "email": "salun@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Azalia",
+      "lastName": "Anderson",
+      "address": "Veritatis voluptas d",
+      "phone": "+1 (198) 954-6404",
+      "birthDate": "1973-01-14",
+      "role": "particulier"
+    },
+    {
+      "id": "eec6",
+      "email": "tepymipo@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Cameran",
+      "lastName": "Curtis",
+      "address": "Dolore ipsum porro q",
+      "phone": "+1 (171) 537-3723",
+      "birthDate": "1977-02-10",
+      "role": "particulier"
+    },
+    {
+      "id": "3a4e",
+      "email": "gyfiquv@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Kristen",
+      "lastName": "Pacheco",
+      "address": "marrakech",
+      "phone": "+1 (105) 608-4661",
+      "birthDate": "2020-11-22",
+      "role": "particulier"
+    },
+    {
+      "id": "1d70",
+      "email": "fijocuk@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "firstName": "Charity",
+      "lastName": "Everett",
+      "address": "Laborum accusantium ",
+      "phone": "+1 (245) 926-1566",
+      "birthDate": "1989-05-30",
+      "role": "particulier"
     }
   ],
   "demands": [
     {
-      "id": "301e",
+      "id": "08c3",
       "wasteTypes": [
         {
           "type": "papier",
-          "weight": 3270
-        }
-      ],
-      "address": "Odio veniam iusto c",
-      "date": "1977-08-03",
-      "timeSlot": "17:00 - 18:00",
-      "notes": "Ullamco accusamus pe",
-      "status": "En cours",
-      "totalWeight": 3270,
-      "userId": "2e43"
-    },
-    {
-      "id": "8631",
-      "wasteTypes": [
-        {
-          "type": "plastique",
-          "weight": 4679
-        }
-      ],
-      "address": "Rerum quis maxime un",
-      "date": "1989-01-08",
-      "timeSlot": "10:00 - 11:00",
-      "notes": "Quos adipisci veniam",
-      "status": "En cours",
-      "totalWeight": 4679,
-      "userId": "2e43"
-    },
-    {
-      "id": "7559",
-      "wasteTypes": [
-        {
-          "type": "plastique",
-          "weight": 4680
-        },
-        {
-          "type": "verre",
-          "weight": 1910
+          "weight": 1092
         },
         {
           "type": "metal",
-          "weight": 1920
+          "weight": 7923
         }
       ],
-      "address": "Ab magna sed et ea o",
-      "date": "1997-02-15",
-      "timeSlot": "16:00 - 17:00",
-      "notes": "Aspernatur consequat",
+      "address": "Tempore natus irure",
+      "date": "2023-08-25",
+      "timeSlot": "12:00 - 13:00",
+      "notes": "Consequatur Illum ",
       "status": "En cours",
-      "totalWeight": 8510,
-      "userId": "2e43"
+      "totalWeight": 9015,
+      "userId": "eec6"
+    },
+    {
+      "id": "12c6",
+      "wasteTypes": [
+        {
+          "type": "metal",
+          "weight": 6923
+        }
+      ],
+      "address": "Eum exercitationem i",
+      "date": "1991-11-13",
+      "timeSlot": "14:00 - 15:00",
+      "notes": "Tempora quis duis la",
+      "status": "En cours",
+      "totalWeight": 6923,
+      "userId": "1d70"
+    },
+    {
+      "id": "9d92",
+      "wasteTypes": [
+        {
+          "type": "metal",
+          "weight": 5393
+        }
+      ],
+      "address": "Voluptate velit hic ",
+      "date": "1990-04-25",
+      "timeSlot": "17:00 - 18:00",
+      "notes": "Omnis mollitia duis ",
+      "status": "En cours",
+      "totalWeight": 5393,
+      "userId": "1d70"
+    },
+    {
+      "id": "9a23",
+      "wasteTypes": [
+        {
+          "type": "plastique",
+          "weight": 1980
+        },
+        {
+          "type": "verre",
+          "weight": 1000
+        },
+        {
+          "type": "papier",
+          "weight": 3000
+        },
+        {
+          "type": "metal",
+          "weight": 3000
+        }
+      ],
+      "address": "marrakech",
+      "date": "2019-09-09",
+      "timeSlot": "14:00 - 15:00",
+      "notes": "Aute ullam iure dele",
+      "status": "Validée",
+      "totalWeight": 8980,
+      "userId": "1d70"
     }
   ],
   "token": [

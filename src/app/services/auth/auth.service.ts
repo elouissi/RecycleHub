@@ -57,8 +57,8 @@ export class AuthService {
                 firstName: registeredUser.firstName,
                 lastName: registeredUser.lastName,
                 role: registeredUser.role,
+                address: registeredUser.address,
               };
-              console.log("Utilisateur enregistré :", userData);
               localStorage.setItem("currentUser", JSON.stringify(userData));
               console.log("hhhhhh" + localStorage.getItem("currentUser"));
 
@@ -83,7 +83,9 @@ export class AuthService {
             firstName: users[0].firstName,
             lastName: users[0].lastName,
             role: users[0].role,
+            address: users[0].address,
           };
+          alert(users[0].adress)
           localStorage.setItem("currentUser", JSON.stringify(userData))
           this.currentUserSubject.next(userData)
         }
@@ -156,6 +158,20 @@ export class AuthService {
     }
     return null;
   }
+  getAdress(): string | null {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        return parsedUser.address || null;
+      } catch (error) {
+        console.error("Erreur lors de la récupération d'adress :", error);
+        return null;
+      }
+    }
+    return null;
+  }
+
 
 
 
