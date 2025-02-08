@@ -56,6 +56,7 @@ export class AuthService {
                 email: registeredUser.email,
                 firstName: registeredUser.firstName,
                 lastName: registeredUser.lastName,
+                role: registeredUser.role,
               };
               console.log("Utilisateur enregistré :", userData);
               localStorage.setItem("currentUser", JSON.stringify(userData));
@@ -81,6 +82,7 @@ export class AuthService {
             email: users[0].email,
             firstName: users[0].firstName,
             lastName: users[0].lastName,
+            role: users[0].role,
           };
           localStorage.setItem("currentUser", JSON.stringify(userData))
           this.currentUserSubject.next(userData)
@@ -141,6 +143,20 @@ export class AuthService {
     }
     return null;
   }
+  getRole(): string | null {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        return parsedUser.role || null;
+      } catch (error) {
+        console.error("Erreur lors de la récupération du role :", error);
+        return null;
+      }
+    }
+    return null;
+  }
+
 
 
 

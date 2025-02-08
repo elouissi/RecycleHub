@@ -20,6 +20,9 @@ export class HomeComponent {
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
+  isParticulier(): boolean {
+    return this.authService.getRole()=="particulier"
+  }
 
 
 }

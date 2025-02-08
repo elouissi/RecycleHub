@@ -21,6 +21,9 @@ export class HeaderComponent {
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
+  isParticulier(): boolean {
+    return this.authService.getRole()=="particulier"
+  }
 
   logout() {
     return this.authService.logout();

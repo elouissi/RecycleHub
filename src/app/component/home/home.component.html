@@ -8,8 +8,11 @@
       <a *ngIf="!isAuthenticated()" routerLink="/register" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
         Rejoignez-nous
       </a>
-      <a *ngIf="isAuthenticated()" routerLink="/collection" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
+      <a *ngIf="isAuthenticated() && isParticulier()" routerLink="/collection" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
         Demander une collection
+      </a>
+      <a *ngIf="isAuthenticated() && !isParticulier()" routerLink="/requests" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">
+        Consulter les demandes recus
       </a>
     </div>
   </section>

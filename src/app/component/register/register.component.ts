@@ -23,6 +23,7 @@ export class RegisterComponent {
     phone: "",
     birthDate: "",
     profilePicture: null as string | null,
+    role:"particulier"
   }
   constructor(private authService: AuthService,private router:Router) {
   }
@@ -58,7 +59,7 @@ export class RegisterComponent {
           text: "Votre compte a été créé avec succès.",
           confirmButtonText: "OK"
         }).then(() => {
-          this.router.navigate(["/"]);
+          this.router.navigate(["/home"]);
         });
         },
       error: (error) => {

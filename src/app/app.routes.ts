@@ -6,13 +6,16 @@ import {HomeComponent} from "./component/home/home.component";
 import {CollectionComponent} from "./component/collection/collection.component";
 import {RequestComponent} from "./component/request/request.component";
 import {ProfileComponent} from "./component/profile/profile.component";
+import {authGuard} from "./guards/auth.guard";
+import {particulierGuard} from "./guards/particulier.guard";
+import {logoutGuard} from "./guards/logout.guard";
 
 export const routes: Routes = [
   {path: "home", component: HomeComponent },
   {path: "", component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'collection', component: CollectionComponent },
-  {path: 'requests', component: RequestComponent },
-  {path: 'profile/:id', component: ProfileComponent },
+  { path: 'login', component: LoginComponent ,canActivate:[logoutGuard] },
+  { path: 'register', component: RegisterComponent ,canActivate:[logoutGuard]},
+  { path: 'collection', component: CollectionComponent , canActivate:[authGuard,particulierGuard] },
+  {path: 'requests', component: RequestComponent,  canActivate:[authGuard]  },
+  {path: 'profile/:id', component: ProfileComponent , canActivate:[authGuard]  },
 ];

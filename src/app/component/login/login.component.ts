@@ -31,7 +31,7 @@ export class LoginComponent {
             text: "Bienvenue.",
             confirmButtonText: "OK"
           });
-          this.router.navigate(["/"])
+          this.router.navigate(["/home"])
         } else {
           Swal.fire({
             icon: "error",

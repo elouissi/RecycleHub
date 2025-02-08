@@ -10,7 +10,7 @@
 
       <div class="hidden lg:flex lg:space-x-6">
         <a routerLink="/home" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">Home</a>
-        <a routerLink="/requests" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">My Request</a>
+        <a *ngIf="isAuthenticated() " routerLink="/requests" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">My Request</a>
 
       </div>
 
