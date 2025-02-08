@@ -52,7 +52,6 @@ export class RequestComponent implements OnInit {
 
   ngOnInit() {
     this.fetchCollections();
-
     this.collectionRequests.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 }

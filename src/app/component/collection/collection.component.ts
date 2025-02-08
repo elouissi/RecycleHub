@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, Abs
 import Swal from "sweetalert2";
 import { CollectionService } from "../../services/collection/collection.service";
 import { NgForOf, NgIf } from "@angular/common";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: "app-collection",
@@ -27,7 +28,7 @@ export class CollectionComponent implements OnInit {
     "17:00 - 18:00",
   ];
 
-  constructor(private fb: FormBuilder, private collectionService: CollectionService) { }
+  constructor(private fb: FormBuilder, private collectionService: CollectionService,private authService: AuthService) { }
 
   validateTotalWeight(control: AbstractControl): ValidationErrors | null {
     const wasteArray = control as FormArray;
@@ -45,7 +46,9 @@ export class CollectionComponent implements OnInit {
       date: ['', Validators.required],
       timeSlot: ['', Validators.required],
       notes: ['', Validators.required],
-      totalWeight: [0,Validators.max(10000)]
+      status:['En cours'],
+      totalWeight: [0,Validators.max(10000)],
+      userId:[this.authService.getUserId()]
     });
 
     console.log(this.collectionForm.get('totalWeight')?.value);
@@ -138,24 +141,36 @@ export class CollectionComponent implements OnInit {
 
   onSubmit() {
     if (this.collectionForm.valid) {
-      const totalWeight = this.calculateTotalWeight();
-      const demand = {
-        ...this.collectionForm.value,
-        totalWeight
-      };
-
-      this.showLoadingAlert();
-      this.collectionService.createDemand(demand).subscribe({
-        next: () => {
-          Swal.close();
-          this.showSuccessAlert("Demande de collecte soumise avec succès !").then(() =>
-            this.collectionForm.reset());
-        },
-        error: () => {
-          Swal.close();
-          this.showErrorAlert("Une erreur est survenue lors de la soumission de la demande.");
+      this.collectionService.getPendingDemands(this.authService.getUserId()).subscribe((pendingRequests: any[]) => {
+        console.log(pendingRequests);
+        if (pendingRequests.length >= 3) {
+          this.showWarningAlert("Vous ne pouvez pas avoir plus de 3 demandes en cours.");
+          return;
         }
+
+        const totalWeight = this.calculateTotalWeight();
+        const demand = {
+          ...this.collectionForm.value,
+          totalWeight
+        };
+
+        this.showLoadingAlert();
+        this.collectionService.createDemand(demand).subscribe({
+          next: () => {
+            Swal.close();
+            this.showSuccessAlert("Demande de collecte soumise avec succès !").then(() =>
+              this.collectionForm.reset());
+          },
+          error: () => {
+            Swal.close();
+            this.showErrorAlert("Une erreur est survenue lors de la soumission de la demande.");
+          }
+        });
+
+      }, error => {
+        this.showErrorAlert("Erreur lors de la récupération des demandes en cours.");
       });
+
     } else {
       if (this.collectionForm.get('wasteTypes')?.hasError('maxTotalWeight')) {
         this.showWarningAlert("Le poids total dépasse le maximum autorisé de 10000g");
