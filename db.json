@@ -1,17 +1,6 @@
 {
   "users": [
     {
-      "id": "0592",
-      "email": "jyhyqowo@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Gisela",
-      "lastName": "Blanchard",
-      "address": "Quaerat quis quidem ",
-      "phone": "+1 (977) 681-8385",
-      "birthDate": "2007-03-23",
-      "role": "particulier"
-    },
-    {
       "id": "e78e",
       "email": "collecteur@a.com",
       "password": "Pa$$w0rd!",
@@ -23,174 +12,134 @@
       "role": "collecteur"
     },
     {
-      "id": "1c39",
-      "email": "metysinera@mailinator.com",
+      "id": "810b",
+      "email": "particulier@p.com",
       "password": "Pa$$w0rd!",
-      "firstName": "Wylie",
-      "lastName": "Ferrell",
-      "address": "Ut nihil quia omnis ",
-      "phone": "+1 (665) 132-7937",
-      "birthDate": "2023-12-11",
-      "role": "particulier"
-    },
-    {
-      "id": "dd5e",
-      "email": "gakaqut@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Gretchen",
-      "lastName": "Sawyer",
-      "address": "Quia reprehenderit d",
-      "phone": "+1 (683) 775-4607",
-      "birthDate": "2004-12-15",
-      "role": "particulier"
-    },
-    {
-      "id": "5eaa",
-      "email": "sudul@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Devin",
-      "lastName": "Holman",
-      "address": "In qui esse ut unde",
-      "phone": "+1 (522) 725-8234",
-      "birthDate": "1997-05-17",
-      "role": "particulier"
-    },
-    {
-      "id": "fe46",
-      "email": "jehaxecac@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Giacomo",
-      "lastName": "Hines",
-      "address": "Est aliquip pariatur",
-      "phone": "+1 (184) 184-8862",
-      "birthDate": "2010-10-23",
-      "role": "particulier"
-    },
-    {
-      "id": "a9ad",
-      "email": "salun@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Azalia",
-      "lastName": "Anderson",
-      "address": "Veritatis voluptas d",
-      "phone": "+1 (198) 954-6404",
-      "birthDate": "1973-01-14",
-      "role": "particulier"
-    },
-    {
-      "id": "eec6",
-      "email": "tepymipo@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Cameran",
-      "lastName": "Curtis",
-      "address": "Dolore ipsum porro q",
-      "phone": "+1 (171) 537-3723",
-      "birthDate": "1977-02-10",
-      "role": "particulier"
-    },
-    {
-      "id": "3a4e",
-      "email": "gyfiquv@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Kristen",
-      "lastName": "Pacheco",
-      "address": "marrakech",
-      "phone": "+1 (105) 608-4661",
-      "birthDate": "2020-11-22",
-      "role": "particulier"
-    },
-    {
-      "id": "1d70",
-      "email": "fijocuk@mailinator.com",
-      "password": "Pa$$w0rd!",
-      "firstName": "Charity",
-      "lastName": "Everett",
-      "address": "Laborum accusantium ",
-      "phone": "+1 (245) 926-1566",
-      "birthDate": "1989-05-30",
-      "role": "particulier"
+      "firstName": "particulier",
+      "lastName": "particulier",
+      "address": "Corrupti itaque imp",
+      "phone": "+1 (469) 355-4889",
+      "birthDate": "2020-08-23",
+      "role": "particulier",
+      "points": 38.31
     }
   ],
   "demands": [
     {
-      "id": "08c3",
+      "id": "d499",
       "wasteTypes": [
         {
           "type": "papier",
-          "weight": 1092
-        },
-        {
-          "type": "metal",
-          "weight": 7923
+          "weight": 1920
         }
       ],
-      "address": "Tempore natus irure",
-      "date": "2023-08-25",
-      "timeSlot": "12:00 - 13:00",
-      "notes": "Consequatur Illum ",
-      "status": "En cours",
-      "totalWeight": 9015,
-      "userId": "eec6"
-    },
-    {
-      "id": "12c6",
-      "wasteTypes": [
-        {
-          "type": "metal",
-          "weight": 6923
-        }
-      ],
-      "address": "Eum exercitationem i",
-      "date": "1991-11-13",
+      "address": "marrakech",
+      "date": "2004-08-02",
       "timeSlot": "14:00 - 15:00",
-      "notes": "Tempora quis duis la",
-      "status": "En cours",
-      "totalWeight": 6923,
-      "userId": "1d70"
+      "notes": "Dolor reiciendis com",
+      "status": "Validée",
+      "totalWeight": 1920,
+      "userId": "810b"
     },
     {
-      "id": "9d92",
+      "id": "2566",
       "wasteTypes": [
         {
-          "type": "metal",
-          "weight": 5393
+          "type": "papier",
+          "weight": 5270
         }
       ],
-      "address": "Voluptate velit hic ",
-      "date": "1990-04-25",
-      "timeSlot": "17:00 - 18:00",
-      "notes": "Omnis mollitia duis ",
-      "status": "En cours",
-      "totalWeight": 5393,
-      "userId": "1d70"
+      "address": "marrakech",
+      "date": "1992-05-02",
+      "timeSlot": "10:00 - 11:00",
+      "notes": "Minus nostrud optio",
+      "status": "Validée",
+      "totalWeight": 5270,
+      "userId": "810b"
     },
     {
-      "id": "9a23",
+      "id": "25b8",
       "wasteTypes": [
         {
-          "type": "plastique",
-          "weight": 1980
+          "type": "papier",
+          "weight": 1700
         },
         {
           "type": "verre",
+          "weight": 3360
+        },
+        {
+          "type": "metal",
+          "weight": 1470
+        }
+      ],
+      "address": "marrakech",
+      "date": "1994-07-18",
+      "timeSlot": "09:00 - 10:00",
+      "notes": "Nulla sequi consequa",
+      "status": "Validée",
+      "totalWeight": 6530,
+      "userId": "810b"
+    },
+    {
+      "id": "ba23",
+      "wasteTypes": [
+        {
+          "type": "papier",
+          "weight": 6140
+        }
+      ],
+      "address": "marrakech",
+      "date": "2006-10-19",
+      "timeSlot": "10:00 - 11:00",
+      "notes": "In earum id error qu",
+      "status": "Validée",
+      "totalWeight": 6140,
+      "userId": "810b"
+    },
+    {
+      "id": "e535",
+      "wasteTypes": [
+        {
+          "type": "verre",
+          "weight": 8389
+        }
+      ],
+      "address": "marrakech",
+      "date": "2003-08-04",
+      "timeSlot": "16:00 - 17:00",
+      "notes": "Non hic adipisicing ",
+      "status": "Rejetée",
+      "totalWeight": 8389,
+      "userId": "810b"
+    },
+    {
+      "id": "6da0",
+      "wasteTypes": [
+        {
+          "type": "verre",
+          "weight": 1750
+        },
+        {
+          "type": "plastique",
           "weight": 1000
         },
         {
           "type": "papier",
-          "weight": 3000
+          "weight": 5190
         },
         {
           "type": "metal",
-          "weight": 3000
+          "weight": 1110
         }
       ],
       "address": "marrakech",
-      "date": "2019-09-09",
-      "timeSlot": "14:00 - 15:00",
-      "notes": "Aute ullam iure dele",
+      "date": "1980-06-19",
+      "timeSlot": "17:00 - 18:00",
+      "notes": "Reiciendis sint con",
       "status": "Validée",
-      "totalWeight": 8980,
-      "userId": "1d70"
+      "totalWeight": 9050,
+      "userId": "810b"
     }
   ],
   "token": [

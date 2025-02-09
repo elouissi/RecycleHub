@@ -46,9 +46,9 @@ export class CollectionComponent implements OnInit {
       date: ['', Validators.required],
       timeSlot: ['', Validators.required],
       notes: ['', Validators.required],
-      status:["En cours"],
+      status:["En cours" , Validators.required],
       totalWeight: [0,Validators.max(10000)],
-      userId:[this.authService.getUserId()]
+      userId:[this.authService.getUserId(),Validators.required],
     });
 
 
@@ -163,8 +163,20 @@ export class CollectionComponent implements OnInit {
         this.collectionService.createDemand(demand).subscribe({
           next: () => {
             Swal.close();
-            this.showSuccessAlert("Demande de collecte soumise avec succès !").then(() =>
-              this.collectionForm.reset());
+            this.showSuccessAlert("Demande de collecte soumise avec succès !").then(() => {
+              // Réinitialiser le formulaire avec les valeurs par défaut
+              this.collectionForm.reset({
+                wasteTypes: [],
+                address: '',
+                date: '',
+                timeSlot: '',
+                notes: '',
+                status: "En cours",
+                totalWeight: 0,
+                userId: this.authService.getUserId(),
+              });
+              this.addWasteType(); // Ajouter un type de déchet par défaut après la réinitialisation
+            });
           },
           error: () => {
             Swal.close();
@@ -184,7 +196,6 @@ export class CollectionComponent implements OnInit {
       }
     }
   }
-
   showLoadingAlert() {
     return Swal.fire({
       title: "Traitement en cours...",

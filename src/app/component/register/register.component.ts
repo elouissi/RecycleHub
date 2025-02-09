@@ -23,7 +23,8 @@ export class RegisterComponent {
     phone: "",
     birthDate: "",
     profilePicture: null as string | null,
-    role:"particulier"
+    role:"particulier",
+    points:0
   }
   constructor(private authService: AuthService,private router:Router) {
   }

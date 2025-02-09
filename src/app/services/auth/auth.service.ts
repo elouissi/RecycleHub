@@ -58,6 +58,7 @@ export class AuthService {
                 lastName: registeredUser.lastName,
                 role: registeredUser.role,
                 address: registeredUser.address,
+                points: registeredUser.points,
               };
               localStorage.setItem("currentUser", JSON.stringify(userData));
               console.log("hhhhhh" + localStorage.getItem("currentUser"));
@@ -84,8 +85,8 @@ export class AuthService {
             lastName: users[0].lastName,
             role: users[0].role,
             address: users[0].address,
+            points: users[0].points,
           };
-          alert(users[0].adress)
           localStorage.setItem("currentUser", JSON.stringify(userData))
           this.currentUserSubject.next(userData)
         }
@@ -158,7 +159,7 @@ export class AuthService {
     }
     return null;
   }
-  getAdress(): string | null {
+  getAddress(): string | null {
     const user = localStorage.getItem("currentUser");
     if (user) {
       try {
@@ -171,6 +172,22 @@ export class AuthService {
     }
     return null;
   }
+  getPoints(): number | null {
+    const user = localStorage.getItem("currentUser");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        return parsedUser.points !== undefined ? parsedUser.points : null;
+      } catch (error) {
+        console.error("Erreur lors de la récupération des points :", error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+
+
 
 
 

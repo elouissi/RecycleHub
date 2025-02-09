@@ -21,13 +21,20 @@ export class HeaderComponent {
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
+
   isParticulier(): boolean {
     return this.authService.getRole()=="particulier"
+  }
+  getPoints() : number | null{
+    return this.authService.getPoints();
   }
 
   logout() {
      this.authService.logout()
      return this.router.navigate(["/home"]);
+
+  }
+  getUserPoints(){
 
   }
   toggleMobileMenu() {
