@@ -1,35 +1,55 @@
-import { HttpClient } from "@angular/common/http"; // Changez type import à regular import
-import { Injectable } from "@angular/core"
-import {BehaviorSubject, catchError, Observable, switchMap, tap, throwError} from "rxjs"
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, catchError, Observable, switchMap, tap, throwError } from "rxjs";
 import Swal from "sweetalert2";
+
+interface UserData {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  address: string;
+  points: number;
+  montant?: number;
+}
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = "http://localhost:3000"
-  private currentUserSubject: BehaviorSubject<any>
-  public currentUser: Observable<any>
+  private apiUrl = "http://localhost:3000";
+  private currentUserSubject: BehaviorSubject<UserData | null>;
+  public currentUser: Observable<UserData | null>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("currentUser") || "null"))
-    this.currentUser = this.currentUserSubject.asObservable()
+    let initialUser: UserData | null = null;
+    try {
+      const storedUser = localStorage.getItem("currentUser");
+      if (storedUser) {
+        initialUser = JSON.parse(storedUser);
+      }
+    } catch (error) {
+      console.error("Erreur lors du parsing des données utilisateur:", error);
+      localStorage.removeItem("currentUser");
+    }
+
+    this.currentUserSubject = new BehaviorSubject<UserData | null>(initialUser);
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue() {
-    return this.currentUserSubject.value
+  public get currentUserValue(): UserData | null {
+    return this.currentUserSubject.value;
   }
 
   isAuthenticated(): boolean {
-    return !!this.currentUserSubject.value ;
+    return !!this.currentUserSubject.value;
   }
-
-
 
   register(user: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/users?email=${user.email}`).pipe(
-      switchMap((existingUser: any) => {
-        if (existingUser && existingUser.length > 0) {
+      switchMap((existingUsers: any) => {
+        if (existingUsers && existingUsers.length > 0) {
           Swal.fire({
             title: 'Erreur',
             text: 'L\'email est déjà utilisé. Veuillez en choisir un autre.',
@@ -37,163 +57,132 @@ export class AuthService {
             confirmButtonText: 'OK'
           });
           return throwError(() => new Error('Email déjà utilisé.'));
-        } else {
-          if (user.profilePicture === null) {
-            delete user.profilePicture;
-          }
-          return this.http.post(`${this.apiUrl}/users`, user).pipe(
-            tap((registeredUser : any) => {
-              this.http.put(`${this.apiUrl}/token/3ede`, { exist: true }).subscribe({
-                next: (tokenResponse) => {
-                  console.log("Token mis à jour :", tokenResponse);
-                },
-                error: (error) => {
-                  console.error("Erreur lors de la mise à jour du token", error);
-                }
-              });
-              const userData = {
-                id: registeredUser.id,
-                email: registeredUser.email,
-                firstName: registeredUser.firstName,
-                lastName: registeredUser.lastName,
-                role: registeredUser.role,
-                address: registeredUser.address,
-                points: registeredUser.points,
-              };
-              localStorage.setItem("currentUser", JSON.stringify(userData));
-              console.log("hhhhhh" + localStorage.getItem("currentUser"));
-
-              this.currentUserSubject.next(userData);
-            })
-          );
         }
+
+        // Nettoyage des données avant l'envoi
+        const userToRegister = { ...user };
+        if (userToRegister.profilePicture === null) {
+          delete userToRegister.profilePicture;
+        }
+        userToRegister.points = userToRegister.points || 0;
+        userToRegister.montant = userToRegister.montant || 0;
+
+        return this.http.post(`${this.apiUrl}/users`, userToRegister).pipe(
+          tap((registeredUser: any) => {
+            // Mise à jour du token
+            this.updateToken(true);
+
+            // Préparation des données utilisateur
+            const userData: UserData = {
+              id: registeredUser.id,
+              email: registeredUser.email,
+              firstName: registeredUser.firstName,
+              lastName: registeredUser.lastName,
+              role: registeredUser.role,
+              address: registeredUser.address,
+              points: registeredUser.points,
+              montant: registeredUser.montant
+            };
+
+            this.saveUserData(userData);
+          })
+        );
       }),
       catchError((error) => {
-        console.error(error.message);
+        console.error("Erreur lors de l'inscription:", error);
         return throwError(() => error);
       })
     );
   }
+
   login(email: string, password: string): Observable<any> {
     return this.http.get<any[]>(`${this.apiUrl}/users?email=${email}&password=${password}`).pipe(
       tap((users) => {
         if (users.length > 0) {
-          const userData = {
+          const userData: UserData = {
             id: users[0].id,
             email: users[0].email,
             firstName: users[0].firstName,
             lastName: users[0].lastName,
             role: users[0].role,
             address: users[0].address,
-            points: users[0].points,
+            points: users[0].points || 0,
+            montant: users[0].montant || 0
           };
-          localStorage.setItem("currentUser", JSON.stringify(userData))
-          this.currentUserSubject.next(userData)
+          this.saveUserData(userData);
         }
       }),
-    )
+      catchError((error) => {
+        console.error("Erreur lors de la connexion:", error);
+        return throwError(() => error);
+      })
+    );
   }
 
   logout() {
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+    this.updateToken(false);
+  }
 
-    return this.http.put(`${this.apiUrl}/token/3ede`, { exist: false }).subscribe({
-      next: (tokenResponse) => {
-        console.log("Token mis à jour :", tokenResponse);
-      },
-      error: (error) => {
-        console.error("Erreur lors de la mise à jour du token", error);
-      }
+  // Méthodes utilitaires pour récupérer les informations utilisateur
+  getUserEmail(): string | null {
+    return this.currentUserValue?.email || null;
+  }
+
+  getUserFirst(): string | null {
+    return this.currentUserValue?.firstName || null;
+  }
+
+  getUserId(): string | null {
+    return this.currentUserValue?.id || null;
+  }
+
+  getRole(): string | null {
+    return this.currentUserValue?.role || null;
+  }
+
+  getAddress(): string | null {
+    return this.currentUserValue?.address || null;
+  }
+
+  getPoints(): number {
+    return this.currentUserValue?.points || 0;
+  }
+  getMontant(): number {
+    return this.currentUserValue?.montant || 0;
+  }
+  updatePoints(points: number,montant: number) {
+    if (this.currentUserValue) {
+      const updatedUser = {
+        ...this.currentUserValue,
+        points: points,
+        montant: montant
+      };
+      this.saveUserData(updatedUser);
+    }
+  }
+
+  // Méthodes privées utilitaires
+  private saveUserData(userData: UserData) {
+    try {
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      this.currentUserSubject.next(userData);
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde des données utilisateur:", error);
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la sauvegarde des données.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+
+  private updateToken(exists: boolean) {
+    this.http.put(`${this.apiUrl}/token/3ede`, { exist: exists }).subscribe({
+      next: () => console.log("Token mis à jour"),
+      error: (error) => console.error("Erreur lors de la mise à jour du token:", error)
     });
   }
-  getUserEmail(): string | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.email || null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération de l'email :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-  getUserFirst(): string | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.firstName || null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération de l'email :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-  getUserId(): string | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.id || null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération de l'id :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-  getRole(): string | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.role || null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération du role :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-  getAddress(): string | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.address || null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération d'adress :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-  getPoints(): number | null {
-    const user = localStorage.getItem("currentUser");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        return parsedUser.points !== undefined ? parsedUser.points : null;
-      } catch (error) {
-        console.error("Erreur lors de la récupération des points :", error);
-        return null;
-      }
-    }
-    return null;
-  }
-
-
-
-
-
-
-
-
-
-
 }
-

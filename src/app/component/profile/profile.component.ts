@@ -17,6 +17,8 @@ interface User {
   birthDate: string;
   password: string;
   profilePicture: string | null;
+  montant: number;
+  points:number;
 }
 
 @Component({
@@ -35,10 +37,13 @@ export class ProfileComponent implements OnInit {
     lastName: "",
     password: "",
     phone: "",
-    profilePicture: null
+    profilePicture: null,
+    montant:0,
+    points:0,
   };
 
   showPassword: boolean = false;
+  userPoints: number = 0;
 
   private apiUrl = 'http://localhost:3000';
 
@@ -49,20 +54,79 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+  convertPoints(points: number) {
+
+    Swal.fire({
+      title: 'Confirmer la conversion',
+      text: `Êtes-vous sûr de vouloir convertir ${points} points ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, convertir',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let voucherAmount = 0;
+        switch (points) {
+          case 100:
+            voucherAmount = 50;
+            break;
+          case 200:
+            voucherAmount = 120;
+            break;
+          case 500:
+            voucherAmount = 350;
+            break;
+        }
+        const updateData = {
+          points: this.authService.getPoints() - points,
+          montant: this.authService.getMontant() + voucherAmount
+        };
+        this.http.patch(`${this.apiUrl}/users/${this.user.id}`, updateData).subscribe({
+          next: (response: any) => {
+            this.user.points = updateData.points;
+            this.user.montant = updateData.montant;
+            this.userPoints = updateData.points;
+
+            const userData = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            userData.points = updateData.points;
+            userData.montant = updateData.montant;
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+
+            this.authService.updatePoints(updateData.points,updateData.montant);
+
+            Swal.fire({
+              title: 'Succès',
+              text: `Vous avez converti ${points} points en ${voucherAmount} Dh.`,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+          },
+          error: (error) => {
+            console.error('Erreur lors de la conversion des points', error);
+            Swal.fire({
+              title: 'Erreur',
+              text: 'Une erreur est survenue lors de la conversion des points.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        });
+      }
+    });
+  }
   ngOnInit() {
     this.route.params.subscribe(params => {
       const userId = params['id'];
       this.loadUserProfile(userId);
     });
   }
-
   loadUserProfile(userId: string) {
     this.http.get<User>(`${this.apiUrl}/users/${userId}`).subscribe({
       next: (data) => {
-
-        this.user = { ...data,};
+        this.user = { ...data };
       },
-
       error: (error) => {
         console.error('Erreur lors du chargement du profil', error);
         Swal.fire({
@@ -74,7 +138,12 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-
+  getPoints() : number| null  {
+    return this.authService.getPoints();
+  }
+  getMontant() : number| null  {
+    return this.authService.getMontant();
+  }
   updateProfile() {
     const updateData = { ...this.user };
     if (updateData.password == "") {
@@ -82,6 +151,7 @@ export class ProfileComponent implements OnInit {
       updateData.password = this.user.password;
       console.log("updated pass"+ updateData.password+"ancian" + this.user.password);
     }
+
 
 
 
@@ -105,7 +175,6 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-
   deleteProfile() {
     Swal.fire({
       title: 'Êtes-vous sûr ?',
@@ -141,5 +210,4 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
-  }
-}
+  }}

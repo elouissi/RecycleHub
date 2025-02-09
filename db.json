@@ -15,13 +15,14 @@
       "id": "810b",
       "email": "particulier@p.com",
       "password": "Pa$$w0rd!",
-      "firstName": "particulier",
-      "lastName": "particulier",
+      "firstName": "particuliers",
+      "lastName": "particuliers",
       "address": "Corrupti itaque imp",
       "phone": "+1 (469) 355-4889",
       "birthDate": "2020-08-23",
       "role": "particulier",
-      "points": 38.31
+      "points": 8077.5,
+      "montant": 550
     }
   ],
   "demands": [
@@ -139,6 +140,34 @@
       "notes": "Reiciendis sint con",
       "status": "Validée",
       "totalWeight": 9050,
+      "userId": "810b"
+    },
+    {
+      "id": "49df",
+      "wasteTypes": [
+        {
+          "type": "verre",
+          "weight": 2500
+        },
+        {
+          "type": "plastique",
+          "weight": 2500
+        },
+        {
+          "type": "papier",
+          "weight": 2500
+        },
+        {
+          "type": "metal",
+          "weight": 2500
+        }
+      ],
+      "address": "marrakech",
+      "date": "2013-01-23",
+      "timeSlot": "11:00 - 12:00",
+      "notes": "Eos ab ea hic quia ",
+      "status": "Validée",
+      "totalWeight": 10000,
       "userId": "810b"
     }
   ],
