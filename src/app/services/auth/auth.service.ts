@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, Observable, switchMap, tap, throwError } from "rxjs";
 import Swal from "sweetalert2";
+import {User} from "../collection/collection.service";
 
 interface UserData {
   id: string;
@@ -125,13 +126,23 @@ export class AuthService {
     this.updateToken(false);
   }
 
-  // Méthodes utilitaires pour récupérer les informations utilisateur
   getUserEmail(): string | null {
     return this.currentUserValue?.email || null;
   }
 
   getUserFirst(): string | null {
     return this.currentUserValue?.firstName || null;
+  }
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/users/${this.currentUserValue?.id}`);
+  }
+
+  updateUser(user: User): Observable< User> {
+    return this.http.put<User>(`${this.apiUrl}/users/${user.id}`, user);
+  }
+
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
   }
 
   getUserId(): string | null {
@@ -163,7 +174,6 @@ export class AuthService {
     }
   }
 
-  // Méthodes privées utilitaires
   private saveUserData(userData: UserData) {
     try {
       localStorage.setItem("currentUser", JSON.stringify(userData));

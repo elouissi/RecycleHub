@@ -7,6 +7,10 @@
         <path d="M-46 -11C-46 -11 86.5 -10.5 186.5 56.5C286.5 123.5 369 166.5 369 166.5L369 283L-46 283L-46 -11Z" fill="white" />
       </svg>
     </div>
+    <div *ngIf="loading$ | async">Chargement en cours...</div>
+    <div *ngIf="error$ | async as error" class="error-message">
+      Une erreur est survenue : {{ error.message }}
+    </div>
     <div class="relative px-4 py-5 sm:px-6 -mt-24">
       <div class="absolute inset-0 flex items-center justify-center">
         <img *ngIf="user.profilePicture" [src]="user.profilePicture" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover" alt="Photo de profil">
@@ -14,6 +18,12 @@
           {{ user.firstName[0] }}{{ user.lastName[0] }}
         </div>
       </div>
+    </div>
+    <div *ngIf="isParticulier()" class="bg-gradient-to-r from-green-400 to-blue-500 text-white text-center py-6 rounded-lg shadow-md mt-8">
+      <h2 class="text-2xl font-semibold">Votre Solde</h2>
+      <p class="text-4xl font-bold mt-2 flex items-center justify-center">
+        <i class="bi bi-wallet2 mr-2"></i> {{ getMontant() ?? 0 }} Dh
+      </p>
     </div>
     <div class="px-4 py-5 sm:p-6">
       <h3 style="margin-top: 50px" class="text-3xl leading-6 font-semibold text-gray-900 text-center mt-8 mb-6">Modifier votre profil</h3>

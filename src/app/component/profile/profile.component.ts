@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import Swal from 'sweetalert2';
+import {Store} from "@ngrx/store";
+import {selectUser, selectUserError, selectUserLoading} from "../../store/user/user.selectors";
+import {deleteUser, loadUser, updateUser, updateUserPoints} from "../../store/user/user.actions";
 
 interface User {
   id: string;
@@ -38,8 +41,8 @@ export class ProfileComponent implements OnInit {
     password: "",
     phone: "",
     profilePicture: null,
-    montant:0,
-    points:0,
+    montant: 0,
+    points: 0,
   };
 
   showPassword: boolean = false;
@@ -51,11 +54,25 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private store: Store,
+  ) {
+  }
 
-  convertPoints(points: number) {
+  user$ = this.store.select(selectUser);
+  loading$ = this.store.select(selectUserLoading);
+  error$ = this.store.select(selectUserError);
 
+  ngOnInit() {
+    this.store.dispatch(loadUser());
+
+    // Créer une COPIE de l'objet user
+    this.user$.subscribe(user => {
+      if (user) {
+        this.user = { ...user }; // <-- Copie shallow
+      }
+    });
+  }  convertPoints(points: number) {
     Swal.fire({
       title: 'Confirmer la conversion',
       text: `Êtes-vous sûr de vouloir convertir ${points} points ?`,
@@ -66,6 +83,7 @@ export class ProfileComponent implements OnInit {
       confirmButtonText: 'Oui, convertir',
       cancelButtonText: 'Annuler'
     }).then((result) => {
+      alert(points)
       if (result.isConfirmed) {
         let voucherAmount = 0;
         switch (points) {
@@ -78,23 +96,37 @@ export class ProfileComponent implements OnInit {
           case 500:
             voucherAmount = 350;
             break;
+
         }
+        alert(voucherAmount)
+
+
         const updateData = {
           points: this.authService.getPoints() - points,
           montant: this.authService.getMontant() + voucherAmount
         };
+        alert(updateData.points)
+        alert(updateData.montant)
+
         this.http.patch(`${this.apiUrl}/users/${this.user.id}`, updateData).subscribe({
           next: (response: any) => {
-            this.user.points = updateData.points;
-            this.user.montant = updateData.montant;
-            this.userPoints = updateData.points;
+            this.store.dispatch(updateUserPoints({
+              points: updateData.points,
+              montant: updateData.montant
+            }));
 
+            // Mettez à jour l'objet local avec une COPIE
+            this.user = {
+              ...this.user,
+              points: updateData.points,
+              montant: updateData.montant
+            };
             const userData = JSON.parse(localStorage.getItem('currentUser') || '{}');
             userData.points = updateData.points;
             userData.montant = updateData.montant;
             localStorage.setItem('currentUser', JSON.stringify(userData));
 
-            this.authService.updatePoints(updateData.points,updateData.montant);
+            this.authService.updatePoints(updateData.points, updateData.montant);
 
             Swal.fire({
               title: 'Succès',
@@ -116,56 +148,43 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const userId = params['id'];
-      this.loadUserProfile(userId);
-    });
-  }
-  loadUserProfile(userId: string) {
-    this.http.get<User>(`${this.apiUrl}/users/${userId}`).subscribe({
-      next: (data) => {
-        this.user = { ...data };
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement du profil', error);
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Impossible de charger les données du profil',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-    });
-  }
-  getPoints() : number| null  {
+
+
+  getPoints(): number | null {
     return this.authService.getPoints();
   }
-  getMontant() : number| null  {
+
+  getMontant(): number | null {
     return this.authService.getMontant();
   }
+
+  isParticulier(): boolean {
+    return this.authService.getRole() == "particulier"
+  }
+
   updateProfile() {
-    const updateData = { ...this.user };
-    if (updateData.password == "") {
-      console.log("entrer contdition")
+    const updateData = {...this.user};
+    if (updateData.password === "") {
       updateData.password = this.user.password;
-      console.log("updated pass"+ updateData.password+"ancian" + this.user.password);
     }
 
+    this.store.dispatch(updateUser({user: updateData}));
 
-
-
-    this.http.put(`${this.apiUrl}/users/${this.user.id}`, updateData).subscribe({
-      next: (response) => {
+    this.user$.subscribe(user => {
+      if (user) {
+        this.user = user;
         Swal.fire({
           title: 'Succès',
           text: 'Profil mis à jour avec succès',
           icon: 'success',
           confirmButtonText: 'OK'
         });
-      },
-      error: (error) => {
-        console.error('Erreur lors de la mise à jour du profil', error);
+      }
+    });
+
+    // Gérer les erreurs
+    this.error$.subscribe(error => {
+      if (error) {
         Swal.fire({
           title: 'Erreur',
           text: 'Impossible de mettre à jour le profil',
@@ -175,6 +194,7 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
   deleteProfile() {
     Swal.fire({
       title: 'Êtes-vous sûr ?',
@@ -187,8 +207,10 @@ export class ProfileComponent implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.delete(`${this.apiUrl}/users/${this.user.id}`).subscribe({
-          next: () => {
+        this.store.dispatch(deleteUser({id: this.user.id}));
+
+        this.user$.subscribe(user => {
+          if (!user) {
             this.authService.logout();
             Swal.fire(
               'Supprimé !',
@@ -197,9 +219,12 @@ export class ProfileComponent implements OnInit {
             ).then(() => {
               this.router.navigate(['/login']);
             });
-          },
-          error: (error) => {
-            console.error('Erreur lors de la suppression du profil', error);
+          }
+        });
+
+        // Gérer les erreurs
+        this.error$.subscribe(error => {
+          if (error) {
             Swal.fire({
               title: 'Erreur',
               text: 'Impossible de supprimer le profil',
@@ -210,4 +235,5 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
-  }}
+  }
+}

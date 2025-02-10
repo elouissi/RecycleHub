@@ -22,7 +22,17 @@ export interface CollectionRequest {
 
 export interface User {
   id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role?: string;
+  address: string;
   points: number;
+  montant: number;
+  birthDate: string;
+  password: string;
+  phone: string;
+  profilePicture: string | null;
 }
 
 @Injectable({
@@ -82,7 +92,6 @@ export class CollectionService {
     console.log("wase"+wasteTypes.length);
     wasteTypes.forEach((waste) => {
       const weightInKg = waste.weight / 1000;
-      alert(weightInKg)
       switch (waste.type) {
         case "plastique":
           totalPoints = totalPoints + weightInKg * 2;
@@ -100,7 +109,6 @@ export class CollectionService {
           break;
       }
     });
-    alert(totalPoints)
     return totalPoints;
   }
 
