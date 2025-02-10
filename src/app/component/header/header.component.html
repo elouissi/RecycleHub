@@ -3,18 +3,15 @@
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
       <!-- Logo -->
       <a routerLink="/" class="flex items-center">
-        <img ngSrc="/assets/images/logo1.png" class="mr-3 h-8" alt="RecycleHub Logo" height="40" width="40"/>
+        <img  ngSrc="/assets/images/logo1.png" class="mr-3 h-8" alt="RecycleHub Logo" height="40" width="40"/>
         <span class="self-center text-xl font-semibold whitespace-nowrap text-white">RecycleHub</span>
       </a>
 
-      <!-- Menu Navigation (Desktop) -->
+
       <div class="hidden lg:flex lg:space-x-6">
-        <a routerLink="/" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">Home</a>
-        <a routerLink="/recycling-guide" class="text-white hover:text-green-300 px-3 py-2 rounded">Recycling Guide</a>
-        <a routerLink="/collection-points" class="text-white hover:text-green-300 px-3 py-2 rounded">Collection Points</a>
-        <a routerLink="/eco-shop" class="text-white hover:text-green-300 px-3 py-2 rounded">Eco Shop</a>
-        <a routerLink="/community" class="text-white hover:text-green-300 px-3 py-2 rounded">Community</a>
-        <a routerLink="/contact" class="text-white hover:text-green-300 px-3 py-2 rounded">Contact</a>
+        <a routerLink="/home" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">Home</a>
+        <a *ngIf="isAuthenticated() " routerLink="/requests" routerLinkActive="text-white bg-green-700" class="text-white hover:text-green-300 px-3 py-2 rounded">My Request</a>
+
       </div>
 
       <div class="hidden lg:flex lg:items-center">
@@ -27,9 +24,14 @@
         <button>  <a *ngIf="isAuthenticated()"  (click)="logout()"  class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
           Log out
         </a></button>
-        <button class="ml-1">  <a *ngIf="isAuthenticated()" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2">
-          {{getFirst()}}
-        </a></button>
+        <button class="ml-1">
+          <a style="    height: 33px;" *ngIf="isAuthenticated()" routerLink="/profile/{{getId()}}" class="text-white bg-green-700 hover:bg-white hover:text-green-800 font-medium rounded-lg text-sm px-4 py-2 flex items-center">
+            <span>{{getFirst()}}</span>
+            <span *ngIf="isParticulier()" class="ml-2 bg-yellow-400 text-green-800 px-2 py-1 rounded-full text-xs font-bold">
+              {{getPoints()}} pts
+            </span>
+          </a>
+        </button>
 
 
 

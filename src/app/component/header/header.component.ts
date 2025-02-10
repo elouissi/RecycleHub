@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {FlowbiteService} from "../../services/flowbite.service";
 import {AuthService} from "../../services/auth/auth.service";
@@ -15,15 +15,26 @@ export class HeaderComponent {
   isMobileMenuOpen = false
 
 
-  constructor(private flowbiteService: FlowbiteService,private authService:AuthService) {}
+  constructor(private flowbiteService: FlowbiteService,private authService:AuthService,private router:Router) {}
 
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
 
+  isParticulier(): boolean {
+    return this.authService.getRole()=="particulier"
+  }
+  getPoints() : number | null{
+    return this.authService.getPoints();
+  }
+
   logout() {
-    return this.authService.logout();
+     this.authService.logout()
+     return this.router.navigate(["/home"]);
+
+  }
+  getUserPoints(){
 
   }
   toggleMobileMenu() {
@@ -34,6 +45,9 @@ export class HeaderComponent {
   }
   getFirst() {
     return this.authService.getUserFirst();
+  }
+  getId(){
+    return this.authService.getUserId();
   }
 
 }

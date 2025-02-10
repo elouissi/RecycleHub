@@ -1,0 +1,128 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="min-h-screen bg-gradient-to-br from-green-100 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto bg-white bg-opacity-90 rounded-lg shadow-xl overflow-hidden">
+    <div class="relative h-48" style="background-image: url('https://img.freepik.com/psd-gratuit/fond-feuilles-vertes-tropicales_24972-1942.jpg?ga=GA1.1.307167017.1728770497&semt=ais_hybrid')">
+      <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none" style="transform: scale(1.5); opacity: 0.1;">
+        <path d="M-46 -11C-46 -11 86.5 -10.5 186.5 56.5C286.5 123.5 369 166.5 369 166.5L369 283L-46 283L-46 -11Z" fill="white" />
+      </svg>
+    </div>
+    <div class="relative px-4 py-5 sm:px-6 -mt-24">
+      <div class="absolute inset-0 flex items-center justify-center">
+        <img *ngIf="user.profilePicture" [src]="user.profilePicture" class="h-32 w-32 rounded-full border-4 border-white shadow-lg object-cover" alt="Photo de profil">
+        <div *ngIf="!user.profilePicture" class="h-32 w-32 rounded-full border-4 border-white shadow-lg bg-green-200 flex items-center justify-center text-green-600 text-4xl font-bold">
+          {{ user.firstName[0] }}{{ user.lastName[0] }}
+        </div>
+      </div>
+    </div>
+    <div class="px-4 py-5 sm:p-6">
+      <h3 style="margin-top: 50px" class="text-3xl leading-6 font-semibold text-gray-900 text-center mt-8 mb-6">Modifier votre profil</h3>
+
+      <!-- Section des points et conversion -->
+      <div class="mb-6">
+        <h4 class="text-xl font-semibold text-gray-900 mb-4">Points de conversion</h4>
+        <p class="text-gray-700">Vous avez actuellement <strong>{{ getPoints() ?? 0 }} points</strong>.</p>
+        <div class="mt-4 space-y-4">
+          <button
+            [disabled]="(getPoints() ?? 0) < 100"
+            (click)="convertPoints(100)"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            Convertir 100 points en bon d'achat de 50 Dh
+          </button>
+          <button
+            [disabled]="(getPoints() ?? 0) < 200"
+            (click)="convertPoints(200)"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            Convertir 200 points en bon d'achat de 120 Dh
+          </button>
+          <button
+            [disabled]="(getPoints() ?? 0) < 500"
+            (click)="convertPoints(500)"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            Convertir 500 points en bon d'achat de 350 Dh
+          </button>
+        </div>
+      </div>      <form (ngSubmit)="updateProfile()" #profileForm="ngForm" class="space-y-6">
+        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+          <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">Prénom</label>
+            <input type="text" name="firstName" id="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required pattern="^[A-Za-z]+$"
+                   class="mt-1 block w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-red-500 text-sm">
+              <div *ngIf="firstName.errors?.['required']">Le prénom est requis.</div>
+              <div *ngIf="firstName.errors?.['pattern']">Le prénom ne doit contenir que des lettres.</div>
+            </div>
+          </div>
+          <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Nom</label>
+            <input type="text" name="lastName" id="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" required pattern="^[A-Za-z]+$"
+                   class="mt-1 block w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-red-500 text-sm">
+              <div *ngIf="lastName.errors?.['required']">Le nom est requis.</div>
+              <div *ngIf="lastName.errors?.['pattern']">Le nom ne doit contenir que des lettres.</div>
+            </div>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" [(ngModel)]="user.email" #email="ngModel" required
+                   class="mt-1 block w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500 text-sm">
+              <div *ngIf="email.errors?.['required']">L'email est requis.</div>
+              <div *ngIf="email.errors?.['email']">Format d'email invalide.</div>
+            </div>
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700">Téléphone</label>
+            <input type="tel" name="phone" id="phone" [(ngModel)]="user.phone" #phone="ngModel" required pattern="^\+1\s\(\d{3}\)\s\d{3}-\d{4}$"
+                   class="mt-1 block w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-red-500 text-sm">
+              <div *ngIf="phone.errors?.['required']">Le numéro de téléphone est requis.</div>
+              <div *ngIf="phone.errors?.['pattern']">Le numéro doit contenir entre 10 et 15 chiffres.</div>
+            </div>
+          </div>
+          <div class="relative">
+            <label class="block text-sm font-medium text-gray-700" for="password">Mot de passe</label>
+            <div class="flex items-center">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                [(ngModel)]="user.password"
+                #password="ngModel"
+                required
+                minlength="6"
+                class="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-green-600 pr-10"
+              />
+              <button type="button" (click)="showPassword = !showPassword"
+                      class="absolute right-3 top-9 text-gray-500 hover:text-gray-700">
+                <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-500 text-sm">
+              <div *ngIf="password.errors?.['required']">Le mot de passe est requis.</div>
+              <div *ngIf="password.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères.</div>
+            </div>
+          </div>
+          <div>
+            <label for="address" class="block text-sm font-medium text-gray-700">Adresse</label>
+            <input type="text" name="address" id="address" [(ngModel)]="user.address" #address="ngModel" required
+                   class="mt-1 block w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-red-500 text-sm">
+              <div *ngIf="address.errors?.['required']">L'adresse est requise.</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button type="submit" [disabled]="!profileForm.form.valid"
+                  class="py-2 px-4 text-white bg-green-600 hover:bg-green-700 rounded-md focus:ring-2 focus:ring-green-500">
+            Mettre à jour
+          </button>
+          <button type="button" (click)="deleteProfile()"
+                  class="py-2 px-4 text-white bg-red-600 hover:bg-red-700 rounded-md focus:ring-2 focus:ring-red-500">
+            Supprimer le profil
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
